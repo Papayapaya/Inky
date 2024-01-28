@@ -199,9 +199,9 @@ public class RobotMap {
 
         // Component.navx = new AHRS(SerialPort.Port.kMXP);
 
-        // HumanInput.Driver.xyJoystick = new CustomCommandJoystick(Port.HumanInput.xyJoystickPort, 0.01);
-        // HumanInput.Driver.turnJoystick = new CustomCommandJoystick(Port.HumanInput.zJoystickPort, 0.01);
-	    // HumanInput.Operator.joystick = new CustomCommandJoystick(Port.HumanInput.joystick, 0.01);
+        HumanInput.Driver.xyJoystick = new CustomCommandJoystick(Port.HumanInput.xyJoystickPort, 0.01);
+        HumanInput.Driver.turnJoystick = new CustomCommandJoystick(Port.HumanInput.zJoystickPort, 0.01);
+	    HumanInput.Operator.joystick = new CustomCommandJoystick(Port.HumanInput.joystick, 0.01);
         // // // UDP things
         // // try {
         // //     Component.robotUDP = new RobotUDP(Port.Network.LOCAL_SOCKET_ADDRESS, Port.Network.LOCALIZATION_ADDRESS);
