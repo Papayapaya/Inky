@@ -330,8 +330,7 @@ public class SwerveModule
   /**
    * Get the absolute position. Falls back to relative position on reading failure.
    *
-   * @return Absolute encoder angle in degrees in the range [-180, 180).
-   * TODO: Will probably break everything (please work)
+   * @return Absolute encoder angle in degrees in the range [0, 360).
    */
   public double getAbsolutePosition()
   {
@@ -352,8 +351,7 @@ public class SwerveModule
     {
       angle += 360;
     }
-    //Get rid of this if broken
-    return SwerveMath.normalizeAngle(angle);
+    return angle;
   }
 
   /**
@@ -498,10 +496,12 @@ public class SwerveModule
     SmartDashboard.putNumber("Module[" + configuration.name + "] Adjusted Absolute Encoder", getAbsolutePosition());
     SmartDashboard.putNumber("Module[" + configuration.name + "] Absolute Encoder Read Issue",
                              getAbsoluteEncoderReadIssue() ? 1 : 0);
-    //get voltage
+    //angle voltage/current
     SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Voltage", angleMotor.getVoltage());
-    //get current
     SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Current", angleMotor.getCurrent());
-        
+
+    //drive voltage/current
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Drive Motor Voltage", driveMotor.getVoltage());
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Drive Motor Current", driveMotor.getCurrent());
   }
 }
