@@ -317,6 +317,12 @@ public class SparkFlexSwerve extends SwerveMotor
     configureSparkFlex(() -> motor.setIdleMode(isBrakeMode ? IdleMode.kBrake : IdleMode.kCoast));
   }
 
+  @Override
+  public double getCurrent()
+  {
+    return motor.getOutputCurrent();
+  }
+
   /**
    * Set the motor to be inverted.
    *

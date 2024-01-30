@@ -135,6 +135,8 @@ public abstract class SwerveMotor
    * @return Position in meters or degrees.
    */
   public abstract double getPosition();
+  
+  public abstract double getCurrent();
 
   /**
    * Set the integrated encoder position.
@@ -178,4 +180,5 @@ public abstract class SwerveMotor
    * @return connected absolute encoder state.
    */
   public abstract boolean isAttachedAbsoluteEncoder();
+
 }

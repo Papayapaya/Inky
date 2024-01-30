@@ -498,5 +498,10 @@ public class SwerveModule
     SmartDashboard.putNumber("Module[" + configuration.name + "] Adjusted Absolute Encoder", getAbsolutePosition());
     SmartDashboard.putNumber("Module[" + configuration.name + "] Absolute Encoder Read Issue",
                              getAbsoluteEncoderReadIssue() ? 1 : 0);
+    //get voltage
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Voltage", angleMotor.getVoltage());
+    //get current
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Current", angleMotor.getCurrent());
+        
   }
 }
