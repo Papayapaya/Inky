@@ -330,7 +330,8 @@ public class SwerveModule
   /**
    * Get the absolute position. Falls back to relative position on reading failure.
    *
-   * @return Absolute encoder angle in degrees in the range [0, 360).
+   * @return Absolute encoder angle in degrees in the range [-180, 180).
+   * TODO: Will probably break everything (please work)
    */
   public double getAbsolutePosition()
   {
@@ -351,8 +352,8 @@ public class SwerveModule
     {
       angle += 360;
     }
-
-    return angle;
+    //Get rid of this if broken
+    return SwerveMath.normalizeAngle(angle);
   }
 
   /**
