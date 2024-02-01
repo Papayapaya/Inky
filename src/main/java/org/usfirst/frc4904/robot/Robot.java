@@ -19,10 +19,13 @@ import org.usfirst.frc4904.standard.humaninput.Driver;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.Kinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.Angle;
+import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 // import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -97,7 +100,11 @@ public void teleopInitialize() {
 }   
 
     @Override
-    public void teleopExecute() {
+    public void teleopExecute() 
+    {
+        RobotMap.HumanInput.Driver.xyJoystick.button1.onTrue(
+            new InstantCommand(() -> RobotMap.Component.chassis.setAngle(Rotation2d.fromDegrees(45))));
+        
         // //various logging can go here
         // //TODO: getAbsolutePosition() MIGHT NOT WORK OR BE IN RIGHT UNITS!
         // SmartDashboard.putNumber("FL angle-1", RobotMap.Component.FLturnEncoder.getAbsolutePosition());

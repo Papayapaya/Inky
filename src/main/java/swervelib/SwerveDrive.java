@@ -1120,4 +1120,11 @@ public class SwerveDrive
     }
   }
 
+  public void setAngle(Rotation2d angle){
+    swerveModules[0].setModuleAngle(angle);
+    swerveModules[1].setModuleAngle(angle);
+    swerveModules[2].setModuleAngle(angle);
+    swerveModules[3].setModuleAngle(angle);
+  }
+
 }

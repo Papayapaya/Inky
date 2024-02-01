@@ -197,7 +197,7 @@ public class SwerveModule
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop, boolean force)
   {
     desiredState = SwerveModuleState.optimize(desiredState, Rotation2d.fromDegrees(getAbsolutePosition()));
-    // Cosine compensation.
+    // Cosine compensation
     double velocity = configuration.useCosineCompensator ? getCosineCompensatedVelocity(desiredState)
                                                          : desiredState.speedMetersPerSecond;
 
@@ -498,4 +498,9 @@ public class SwerveModule
     SmartDashboard.putNumber("Module[" + configuration.name + "] Absolute Encoder Read Issue",
                              getAbsoluteEncoderReadIssue() ? 1 : 0);
   }
+  public void setModuleAngle(Rotation2d angle){
+    SwerveModuleState state = new SwerveModuleState(0, angle);
+    SwerveModuleState.optimize(state, Rotation2d.fromDegrees(absoluteEncoder.getAbsolutePosition()));
+  }
 }
+
