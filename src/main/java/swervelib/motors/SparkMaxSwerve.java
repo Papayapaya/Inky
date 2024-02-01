@@ -404,6 +404,15 @@ public class SparkMaxSwerve extends SwerveMotor
   }
 
   /**
+   * Get the current output of the motor controller.
+   * 
+   * @return Current output.
+   */
+  public double getCurrent()
+  {
+    return motor.getOutputCurrent();
+  }
+  /**
    * Set the voltage of the motor.
    *
    * @param voltage Voltage to set.

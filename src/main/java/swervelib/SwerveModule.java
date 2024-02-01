@@ -351,7 +351,6 @@ public class SwerveModule
     {
       angle += 360;
     }
-
     return angle;
   }
 
@@ -497,6 +496,13 @@ public class SwerveModule
     SmartDashboard.putNumber("Module[" + configuration.name + "] Adjusted Absolute Encoder", getAbsolutePosition());
     SmartDashboard.putNumber("Module[" + configuration.name + "] Absolute Encoder Read Issue",
                              getAbsoluteEncoderReadIssue() ? 1 : 0);
+    //angle voltage/current
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Voltage", angleMotor.getVoltage());
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Angle Motor Current", angleMotor.getCurrent());
+
+    //drive voltage/current
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Drive Motor Voltage", driveMotor.getVoltage());
+    SmartDashboard.putNumber("Module[" + configuration.name + "] Drive Motor Current", driveMotor.getCurrent());
   }
   public void setModuleAngle(Rotation2d angle){
     SwerveModuleState state = new SwerveModuleState(0, angle);

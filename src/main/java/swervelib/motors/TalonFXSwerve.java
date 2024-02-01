@@ -286,7 +286,11 @@ public class TalonFXSwerve extends SwerveMotor
     //    Timer.delay(1);
     motor.setInverted(inverted);
   }
-
+  @Override //TODO: check if this is correct
+  public double getCurrent()
+  {
+    return motor.getStatorCurrent().getValue();
+  }
   /**
    * Save the configurations from flash to EEPROM.
    */
