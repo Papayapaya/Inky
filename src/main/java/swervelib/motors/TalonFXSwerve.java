@@ -34,17 +34,22 @@ public class TalonFXSwerve extends SwerveMotor
    */
   private final VelocityVoltage    m_velocityVoltageSetter = new VelocityVoltage(0);
   /**
+   * Wait time for status frames to show up.
+   */
+  public static double               STATUS_TIMEOUT_SECONDS = 0.02;
+  /**
    * TalonFX motor controller.
    */
   TalonFX motor;
   /**
    * Conversion factor for the motor.
    */
-  private double               conversionFactor;
+  private       double               conversionFactor;
   /**
    * Current TalonFX configuration.
    */
-  private TalonFXConfiguration configuration = new TalonFXConfiguration();
+  private       TalonFXConfiguration configuration          = new TalonFXConfiguration();
+
 
   /**
    * Constructor for TalonFX swerve motor.
@@ -286,11 +291,6 @@ public class TalonFXSwerve extends SwerveMotor
     //    Timer.delay(1);
     motor.setInverted(inverted);
   }
-  @Override //TODO: check if this is correct
-  public double getCurrent()
-  {
-    return motor.getStatorCurrent().getValue();
-  }
   /**
    * Save the configurations from flash to EEPROM.
    */
@@ -355,7 +355,7 @@ public class TalonFXSwerve extends SwerveMotor
   @Override
   public double getVoltage()
   {
-    return motor.getMotorVoltage().refresh().getValue();
+    return motor.getMotorVoltage().waitForUpdate(STATUS_TIMEOUT_SECONDS).getValue();
   }
 
   /**
@@ -377,7 +377,7 @@ public class TalonFXSwerve extends SwerveMotor
   @Override
   public double getAppliedOutput()
   {
-    return motor.getDutyCycle().refresh().getValue();
+    return motor.getDutyCycle().waitForUpdate(STATUS_TIMEOUT_SECONDS).getValue();
   }
 
   /**

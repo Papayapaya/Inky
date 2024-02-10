@@ -1,5 +1,6 @@
 package swervelib.imu;
 
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Pigeon2Configurator;
@@ -17,17 +18,21 @@ public class Pigeon2Swerve extends SwerveIMU
 {
 
   /**
+   * Wait time for status frames to show up.
+   */
+  public static double     STATUS_TIMEOUT_SECONDS = 0.04;
+  /**
    * Pigeon2 IMU device.
    */
   Pigeon2 imu;
   /**
    * Offset for the Pigeon 2.
    */
-  private Rotation3d offset      = new Rotation3d();
+  private       Rotation3d offset                 = new Rotation3d();
   /**
    * Inversion for the gyro
    */
-  private boolean    invertedIMU = false;
+  private       boolean    invertedIMU            = false;
 
   /**
    * Generate the SwerveIMU for pigeon.
@@ -106,10 +111,26 @@ public class Pigeon2Swerve extends SwerveIMU
     StatusSignal<Double> x = imu.getQuatX();
     StatusSignal<Double> y = imu.getQuatY();
     StatusSignal<Double> z = imu.getQuatZ();
-    Rotation3d reading = new Rotation3d(new Quaternion(w.refresh().getValue(),
-                                                       x.refresh().getValue(),
-                                                       y.refresh().getValue(),
-                                                       z.refresh().getValue()));
+    if(w.getStatus() != StatusCode.OK)
+    {
+      w = w.waitForUpdate(STATUS_TIMEOUT_SECONDS);
+    }
+    if(x.getStatus() != StatusCode.OK)
+    {
+      x = x.waitForUpdate(STATUS_TIMEOUT_SECONDS);
+    }
+    if(y.getStatus() != StatusCode.OK)
+    {
+      y = y.waitForUpdate(STATUS_TIMEOUT_SECONDS);
+    }
+    if(z.getStatus() != StatusCode.OK)
+    {
+      z = z.waitForUpdate(STATUS_TIMEOUT_SECONDS);
+    }
+    Rotation3d reading = new Rotation3d(new Quaternion(w.getValue(),
+                                                       x.getValue(),
+                                                       y.getValue(),
+                                                       z.getValue()));
     return invertedIMU ? reading.unaryMinus() : reading;
   }
 
@@ -138,9 +159,9 @@ public class Pigeon2Swerve extends SwerveIMU
     StatusSignal<Double> yAcc = imu.getAccelerationY();
     StatusSignal<Double> zAcc = imu.getAccelerationZ();
 
-    return Optional.of(new Translation3d(xAcc.refresh().getValue(),
-                                         yAcc.refresh().getValue(),
-                                         zAcc.refresh().getValue()).times(9.81 / 16384.0));
+    return Optional.of(new Translation3d(xAcc.waitForUpdate(STATUS_TIMEOUT_SECONDS).getValue(),
+                                         yAcc.waitForUpdate(STATUS_TIMEOUT_SECONDS).getValue(),
+                                         zAcc.waitForUpdate(STATUS_TIMEOUT_SECONDS).getValue()).times(9.81 / 16384.0));
   }
 
   /**

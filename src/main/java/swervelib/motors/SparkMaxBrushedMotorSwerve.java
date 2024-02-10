@@ -216,10 +216,6 @@ public class SparkMaxBrushedMotorSwerve extends SwerveMotor
       factoryDefaultOccurred = true;
     }
   }
-  @Override //TODO: check if this is correct
-  public double getCurrent()
-  {
-    return motor.getOutputCurrent();}
   /**
    * Clear the sticky faults on the motor controller.
    */
